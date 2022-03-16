@@ -1,10 +1,10 @@
 from flask import Blueprint
 
-bp = Blueprint('main', __name__)
+bp = Blueprint("main", __name__)
 
 
-@bp.route('/')
-@bp.route('/index')
+@bp.route("/")
+@bp.route("/index")
 def index():
     return "Hello, World!"
 
@@ -16,4 +16,3 @@ def test():
     #     cur.execute("SELECT col FROM test;")
     #     (result,) = cur.fetchone()
     #     return flask.jsonify(dict(result=result, backend="python"))
-
