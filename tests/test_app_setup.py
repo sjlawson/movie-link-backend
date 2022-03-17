@@ -11,15 +11,16 @@ def test_app_setup(app, test_database):
     :param test_database:
     :return:
     """
-    movie = Movie.query.first()
-    assert str(movie) == "Toy Story (1995)"
+    with app.app_context():
+        movie = Movie.query.first()
+        assert str(movie) == "Toy Story (1995)"
 
-    link = Link.query.first()
-    assert str(link) == 'Toy Story (1995) links'
+        link = Link.query.first()
+        assert str(link) == 'Toy Story (1995) links'
 
-    rating = Rating.query.first()
-    assert str(rating) == '4.0'
+        rating = Rating.query.first()
+        assert str(rating) == '4.0'
 
-    tag = Tag.query.first()
-    assert str(tag) == 'funny'
+        tag = Tag.query.first()
+        assert str(tag) == 'funny'
 

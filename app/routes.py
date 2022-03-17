@@ -1,4 +1,4 @@
-from flask import Blueprint
+from flask import Blueprint, request, jsonify
 
 bp = Blueprint("main", __name__)
 
@@ -6,13 +6,17 @@ bp = Blueprint("main", __name__)
 @bp.route("/")
 @bp.route("/index")
 def index():
-    return "Hello, World!"
+    return "Not found", 404
 
 
 @bp.route("/test")
+@bp.route('/healthcheck')
 def test():
     return "OK"
-    # with db.cursor() as cur:
-    #     cur.execute("SELECT col FROM test;")
-    #     (result,) = cur.fetchone()
-    #     return flask.jsonify(dict(result=result, backend="python"))
+
+
+@bp.route('/s', methods=['POST'])
+def search():
+    search_query = request.json
+    result = [{"sample": {"title": "The Thing", "rating": "4.1"}}, ]
+    return jsonify({'search_query': search_query, 'result': result})
