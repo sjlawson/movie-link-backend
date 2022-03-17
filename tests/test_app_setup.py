@@ -4,14 +4,14 @@ from app.models.Rating import Rating
 from app.models.Tag import Tag
 
 
-def test_app_setup(app, test_database):
+def test_app_setup(test_app):
     """
     Make sure there is an app context and seed data has been imported from given csv files
     :param app:
     :param test_database:
     :return:
     """
-    with app.app_context():
+    with test_app.app_context():
         movie = Movie.query.first()
         assert str(movie) == "Toy Story (1995)"
 

@@ -1,6 +1,6 @@
-from flask import Blueprint, request, jsonify
-
-bp = Blueprint("main", __name__)
+from flask import request, jsonify
+from app.search import lens_search
+from app.main import bp
 
 
 @bp.route("/")
@@ -15,9 +15,11 @@ def test():
     return "OK"
 
 
-@bp.route('/s', methods=['POST'])
+@bp.route('/s', methods=['GET'])
 def search():
     """
+    GET is generally preferred for search so users can bookmark the result page
+
     text search fields:
         Movie.title,genres
         Tag.tag
@@ -37,8 +39,8 @@ def search():
       - if a float is found, only have to search rating
       - word input will be searched from title, genre, and tag
     """
-    search_query = request.json
-    result = [{"sample": {"title": "The Thing", "rating": "4.1"}}, ]
-    return jsonify({'search_query': search_query, 'result': result})
+    args = request.args
+    result = lens_search(args)  # [{"sample": {"title": "The Thing", "rating": "4.1"}}, ]
+    return jsonify({'search_query': args, 'result': result})
 
 
