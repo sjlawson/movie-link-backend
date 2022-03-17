@@ -1,6 +1,6 @@
 from sqlalchemy_utils import escape_like
 from flask import current_app
-# from current_app.models.Movie import Movie
+from current_app.models.Movie import Movie
 
 
 def lens_search(params):
@@ -16,7 +16,7 @@ def search_title(query):
     """
     # Movie = current_app.extensions.models.Movie
     query = escape_like(query)
-    exact = '' #  Movie.query.filter(Movie.title.like(f'%{query}%')).all()
+    exact = Movie.query.filter(Movie.title.like(f'%{query}%')).all()
     return exact
 
 

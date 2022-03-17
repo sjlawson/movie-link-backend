@@ -42,5 +42,3 @@ def search():
     args = request.args
     result = lens_search(args)  # [{"sample": {"title": "The Thing", "rating": "4.1"}}, ]
     return jsonify({'search_query': args, 'result': result})
-
-
