@@ -3,15 +3,8 @@ from app.search import lens_search
 from app.main import bp
 
 
-@bp.route("/")
-@bp.route("/index")
-def index():
-    return "Not found", 404
-
-
-@bp.route("/test")
-@bp.route('/healthcheck')
-def test():
+@bp.route('/healthcheck', methods=['GET'])
+def healthcheck():
     return "OK"
 
 
@@ -41,4 +34,4 @@ def search():
     """
     args = request.args
     result = lens_search(args)  # [{"sample": {"title": "The Thing", "rating": "4.1"}}, ]
-    return jsonify({'search_query': args, 'result': result})
+    return jsonify({'search_query': args, 'result': [movie.serialize for movie in result]})
