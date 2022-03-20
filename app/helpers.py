@@ -8,6 +8,10 @@ from app.models.Tag import Tag
 
 
 def import_movie_data():
+    if Movie.query.first() is not None:
+        print("Movie data already loaded")
+        return
+
     names = ["movie_id", "title", "genres"]
     df = pd.read_csv("./data_import/movies.csv", names=names, skiprows=1)
     df.to_sql(
@@ -16,6 +20,10 @@ def import_movie_data():
 
 
 def import_link_data():
+    if Link.query.first() is not None:
+        print("Link data already loaded")
+        return
+
     names = ['movie_id', 'imdb_id', 'tmdb_id']
     df = pd.read_csv("./data_import/links.csv", names=names, skiprows=1)
     df.to_sql(
@@ -24,6 +32,10 @@ def import_link_data():
 
 
 def import_rating_data():
+    if Rating.query.first() is not None:
+        print("Rating data already loaded")
+        return
+
     names = ['user_id', 'movie_id', 'rating', 'timestamp']
     df = pd.read_csv("./data_import/ratings.csv", names=names, skiprows=1)
     df.to_sql(
@@ -32,6 +44,10 @@ def import_rating_data():
 
 
 def import_tag_data():
+    if Tag.query.first() is not None:
+        print("Tag data already loaded")
+        return
+
     names = ['user_id', 'movie_id', 'tag', 'timestamp']
     df = pd.read_csv("./data_import/tags.csv", names=names, skiprows=1)
     df.to_sql(

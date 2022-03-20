@@ -8,7 +8,7 @@ def register(app):
 
     @movielens.command()
     def seed_data():
-        print("Loding movielens data")
+        print("Loading movielens data")
         import_movie_data()
         import_link_data()
         import_rating_data()

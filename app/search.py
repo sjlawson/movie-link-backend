@@ -8,7 +8,7 @@ def lens_search(params):
     :return:
     """
     title_result = []
-    if params['title'] and not params['genres'] and not params['tags']:
+    if params.get('title') and not params.get('genres') and not params.get('tags'):
         title_result = search_title(params['title'])
 
     return [*title_result]

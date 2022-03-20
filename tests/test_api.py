@@ -6,7 +6,7 @@ def test_healthcheck(test_app):
         test_client = test_app.test_client()
         response = test_client.get(url_for('main.healthcheck'))
         assert response.status_code == 200
-        assert response.data == b'OK'
+        assert response.json == {'status': 'OK'}
 
 
 def test_search_exact_title_query(test_app):
