@@ -1,5 +1,6 @@
 from flask import request, jsonify
 
+from app.models.dependencies import model_dependency_injection
 from app.main.inputs import movie_search
 from app.main.parse import clean
 from app.search import lens_search
@@ -28,14 +29,8 @@ def search():
         user_id
         timestamp
 
-    Strategy:
-    Use "Bag of words" technique to sort terms into text and numeric
-    Leave User_id and timestamp (sort fields) out of the search algo
-      - Integers will be searched out of movie_id, imdb_id, and tmdb_id
-      - if a float is found, only have to search rating
-      - word input will be searched from title, genre, and tag
     """
     # run the input through a custom API reverse serializer
     movie_search_args = clean(request.args, movie_search)
-    result = lens_search(movie_search_args.data)  # [{"sample": {"title": "The Thing", "rating": "4.1"}}, ]
+    result = lens_search(movie_search_args.data, *model_dependency_injection())
     return jsonify({'search_query': request.args, 'result': [movie.serialize for movie in result]})

@@ -1,14 +1,16 @@
-from app import db
 from app.models.Movie import Movie
-from sqlalchemy.orm import backref
+from sqlalchemy import orm, Column, Integer, ForeignKey, String
+from app import db
+import json
 
 
 class Link(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    movie_id = db.Column(db.Integer, db.ForeignKey(Movie.movie_id), nullable=False)
-    movie = db.relationship(Movie, backref=backref('links', uselist=False))
-    imdb_id = db.Column(db.Integer)
-    tmdb_id = db.Column(db.Integer)
+    __tablename__ = 'links'
+    id = Column(Integer, primary_key=True)
+    movie_id = Column(Integer, ForeignKey(Movie.movie_id), nullable=False)
+    movie = orm.relationship(Movie, backref=orm.backref('links', uselist=True))
+    imdb_id = Column(String(20))
+    tmdb_id = Column(String(20))
 
     def __repr__(self):
-        return f'{self.movie.title} links'
+        return json.dumps({"imdb": self.imdb_id, "tmdb": self.tmdb_id})

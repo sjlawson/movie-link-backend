@@ -1,6 +1,5 @@
 from app.models.Link import Link
-from app.models.Movie import Movie
-from app.models.Rating import Rating
+from app.models.Movie import Movie, Rating
 from app.models.Tag import Tag
 
 
@@ -16,7 +15,7 @@ def test_app_setup(test_app):
         assert str(movie) == "Toy Story (1995)"
 
         link = Link.query.first()
-        assert str(link) == 'Toy Story (1995) links'
+        assert str(link) == '{"imdb": "114709", "tmdb": "862.0"}'
 
         rating = Rating.query.first()
         assert str(rating) == '4.0'
