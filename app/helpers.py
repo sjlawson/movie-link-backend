@@ -15,9 +15,7 @@ def import_movie_data():
     # Pandas provides a fast method of importing large data sets
     df = pd.read_csv("./data_import/movies.csv", names=names, skiprows=1)
     df["rating_avg"] = 0
-    df.to_sql(
-        con=db.engine, index=False, name=Movie.__tablename__, if_exists="append"
-    )
+    df.to_sql(con=db.engine, index=False, name=Movie.__tablename__, if_exists="append")
 
 
 def import_link_data():
@@ -25,7 +23,7 @@ def import_link_data():
         print("Link data already loaded")
         return
 
-    names = ['movie_id', 'imdb_id', 'tmdb_id']
+    names = ["movie_id", "imdb_id", "tmdb_id"]
     df = pd.read_csv("./data_import/links.csv", names=names, skiprows=1)
     df.to_sql(
         con=db.engine, index_label="id", name=Link.__tablename__, if_exists="append"
@@ -44,13 +42,13 @@ def import_rating_data():
         print("Rating data already loaded")
         return
 
-    names = ['user_id', 'movie_id', 'rating', 'timestamp']
+    names = ["user_id", "movie_id", "rating", "timestamp"]
     df = pd.read_csv("./data_import/ratings.csv", names=names, skiprows=1)
     df.to_sql(
         con=db.engine, index_label="id", name=Rating.__tablename__, if_exists="append"
     )
 
-    if not current_app.config['TESTING']:
+    if not current_app.config["TESTING"]:
         # skip the big update for testing
         ratings = Rating.query.group_by(Rating.movie_id).all()
         db.session.add_all(ratings)
@@ -66,7 +64,7 @@ def import_tag_data():
         print("Tag data already loaded")
         return
 
-    names = ['user_id', 'movie_id', 'tag', 'timestamp']
+    names = ["user_id", "movie_id", "tag", "timestamp"]
     df = pd.read_csv("./data_import/tags.csv", names=names, skiprows=1)
     df.to_sql(
         con=db.engine, index_label="id", name=Tag.__tablename__, if_exists="append"

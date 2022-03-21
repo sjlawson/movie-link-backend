@@ -1,5 +1,10 @@
 from app import db
-from app.helpers import import_movie_data, import_link_data, import_rating_data, import_tag_data
+from app.helpers import (
+    import_movie_data,
+    import_link_data,
+    import_rating_data,
+    import_tag_data,
+)
 from app.models.Movie import Rating
 
 

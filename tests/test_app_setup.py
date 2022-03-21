@@ -18,8 +18,7 @@ def test_app_setup(test_app):
         assert str(link) == '{"imdb": "114709", "tmdb": "862.0"}'
 
         rating = Rating.query.first()
-        assert str(rating) == '4.0'
+        assert str(rating) == "4.0"
 
         tag = Tag.query.first()
-        assert str(tag) == 'funny'
-
+        assert str(tag) == "funny"

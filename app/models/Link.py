@@ -5,10 +5,10 @@ import json
 
 
 class Link(db.Model):
-    __tablename__ = 'links'
+    __tablename__ = "links"
     id = Column(Integer, primary_key=True)
     movie_id = Column(Integer, ForeignKey(Movie.movie_id), nullable=False)
-    movie = orm.relationship(Movie, backref=orm.backref('links', uselist=True))
+    movie = orm.relationship(Movie, backref=orm.backref("links", uselist=True))
     imdb_id = Column(String(20))
     tmdb_id = Column(String(20))
 

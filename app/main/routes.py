@@ -7,12 +7,12 @@ from app.search import lens_search
 from app.main import bp
 
 
-@bp.route('/healthcheck', methods=['GET'])
+@bp.route("/healthcheck", methods=["GET"])
 def healthcheck():
-    return jsonify({'status': 'OK'}), 200
+    return jsonify({"status": "OK"}), 200
 
 
-@bp.route('/s', methods=['GET'])
+@bp.route("/s", methods=["GET"])
 def search():
     """
     GET is generally preferred for search so users can bookmark the result page
@@ -33,4 +33,6 @@ def search():
     # run the input through a custom API reverse serializer
     movie_search_args = clean(request.args, movie_search)
     result = lens_search(movie_search_args.data, *model_dependency_injection())
-    return jsonify({'search_query': request.args, 'result': [movie.serialize for movie in result]})
+    return jsonify(
+        {"search_query": request.args, "result": [movie.serialize for movie in result]}
+    )

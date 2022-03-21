@@ -11,5 +11,3 @@ def test_app():
         db = seed_test_data()
         yield app
         db.drop_all()
-
-

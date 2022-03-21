@@ -26,13 +26,13 @@ class BaseField(object):
     def check_empty(self, value):
         if value is undefined:
             if self.required:
-                raise ValidationError('is required')
+                raise ValidationError("is required")
 
             return False
 
         if value is None:
             if not self.nullable:
-                raise ValidationError('should not be null')
+                raise ValidationError("should not be null")
 
             return False
 
@@ -40,7 +40,7 @@ class BaseField(object):
 
 
 class Object(BaseField):
-    field_name = 'object'
+    field_name = "object"
 
     def __init__(self, fields, required=False, nullable=False):
         super().__init__(required, nullable)
@@ -61,7 +61,7 @@ class Object(BaseField):
             return value
 
         if not isinstance(value, dict):
-            raise ValidationError('not an object')
+            raise ValidationError("not an object")
 
         result = {}
 
@@ -74,7 +74,7 @@ class Object(BaseField):
             try:
                 # Update path
                 if old_path:
-                    state.path = old_path + '.' + source
+                    state.path = old_path + "." + source
                 else:
                     state.path = source
 
@@ -102,8 +102,8 @@ class GenericField(BaseField):
         try:
             value = self.coerce(value)
         except ValueError:
-            name = getattr(self.coerce, '__name__') or self.coerce
-            raise ValidationError('expected to be %s' % name)
+            name = getattr(self.coerce, "__name__") or self.coerce
+            raise ValidationError("expected to be %s" % name)
 
         for v in self.validators:
             v(value)
@@ -113,12 +113,12 @@ class GenericField(BaseField):
 
 # Field type shortcuts
 class String(GenericField):
-    field_name = 'string'
+    field_name = "string"
     coerce = str
 
 
 class Integer(GenericField):
-    field_name = 'integer'
+    field_name = "integer"
     coerce = int
 
 
@@ -127,7 +127,7 @@ class State(object):
     def __init__(self):
         self.errors = None
         self.data = None
-        self.path = ''
+        self.path = ""
 
     def add_error(self, name, message):
         if not self.errors:

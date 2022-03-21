@@ -1,4 +1,9 @@
-from app.helpers import import_movie_data, import_link_data, import_rating_data, import_tag_data
+from app.helpers import (
+    import_movie_data,
+    import_link_data,
+    import_rating_data,
+    import_tag_data,
+)
 
 
 def register(app):
