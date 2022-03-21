@@ -1,22 +1,13 @@
-from app import create_app, db
+from app import create_app
 import pytest
-
-from app.helpers import import_movie_data, import_link_data, import_rating_data, import_tag_data
 from config import TestConfig
+from tests.db_setup import seed_test_data
 
 
-@pytest.fixture
-def app():
+@pytest.fixture(scope="session")
+def test_app():
     app = create_app(TestConfig())
-    return app
-
-
-@pytest.fixture
-def test_database():
-    db.create_all()
-    import_movie_data()
-    import_link_data()
-    import_rating_data()
-    import_tag_data()
-    yield db
-    db.drop_all()
+    with app.app_context():
+        db = seed_test_data()
+        yield app
+        db.drop_all()

@@ -1,3 +1,4 @@
+README.md
 setup.py
 challenge.egg-info/PKG-INFO
 challenge.egg-info/SOURCES.txt
